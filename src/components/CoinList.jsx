@@ -1,31 +1,40 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
+import "../Coin.css";
 
-function CoinList() {
-  const [coinName, setCoinName] = useState();
-  const [price, setPrice] = useState();
-  const [rank, setRank] = useState();
-  useEffect(() => {
-    async function getData() {
-      const res = await axios.get(
-        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false`
-      );
-      setCoinName(res.data[0].name);
-      setPrice(res.data[0].current_price);
-      setRank(res.data[0].market_cap_rank);
-    }
-    getData();
-  });
-
+const CoinList = ({
+  name,
+  price,
+  symbol,
+  marketcap,
+  volume,
+  image,
+  priceChange,
+}) => {
   return (
-    <>
-      <h2 style={{ paddingTop: 50 }}>list</h2>
-      <ul>
-        <h1>list</h1>
-        <li>{coinName}  {price}  {rank}</li>
-      </ul>
-    </>
+    <div className="coin-container">
+      <div className="coin-row">
+        <div className="coin">
+          <img src={image} alt="crypto" />
+          <h1>{name}</h1>
+          <p className="coin-symbol">{symbol}</p>
+        </div>
+        <div className="coin-data">
+          <p className="coin-price">${price}</p>
+          <p className="coin-volume">${volume.toLocaleString()}</p>
+
+          {priceChange < 0 ? (
+            <p className="coin-percent red">{priceChange.toFixed(2)}%</p>
+          ) : (
+            <p className="coin-percent green">{priceChange.toFixed(2)}%</p>
+          )}
+
+          <p className="coin-marketcap">
+            Mkt Cap: ${marketcap.toLocaleString()}
+          </p>
+        </div>
+      </div>
+    </div>
   );
-}
+};
 
 export default CoinList;
