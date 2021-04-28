@@ -7,7 +7,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
-import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -92,74 +92,70 @@ export default function PersistentDrawerLeft() {
 
   return (
     <div>
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: open,
+          })}
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, open && classes.hide)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap>
+              <Link to="/" style={{ textDecoration: "none" }}>
+                CoinsInfo
+              </Link>
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          className={classes.drawer}
+          variant="persistent"
+          anchor="left"
+          open={open}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "ltr" ? (
+                <ChevronLeftIcon />
+              ) : (
+                <ChevronRightIcon />
+              )}
+            </IconButton>
+          </div>
 
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-          <Link to="/">
+          <List>
+            <Link to="/SearchCoin" style={{ textDecoration: "none" }}>
+              <ListItem button>
+                <ListItemIcon>
+                  <MonetizationOnIcon />
+                </ListItemIcon>
 
-            CoinsInfo
-          </Link>
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="left"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
-        </div>
-
-        <List>
-          <ListItem button >
-            <ListItemIcon>
-              <MonetizationOnIcon />
-            </ListItemIcon>
-            <ListItemText primary="Search Coin" />
-            </ListItem>
-            
-            <Link to="/SearchCoin">click</Link>
-
-            
-        </List>
-      </Drawer>
-      {/* <main
+                <ListItemText primary="Search Coin" />
+              </ListItem>
+            </Link>
+          </List>
+        </Drawer>
+        {/* <main
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
       >
         <div className={classes.drawerHeader} />
       </main> */}
-    </div>
-      
+      </div>
     </div>
   );
 }
